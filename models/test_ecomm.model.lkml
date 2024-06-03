@@ -7,6 +7,20 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 explore: order_items {
   label: "ecomm_explore"
 
+  join: derived_table_order_facts {
+    type: left_outer
+    view_label: "Orders facts"
+    relationship: many_to_one
+    sql_on:  ${order_items.order_id}= ${derived_table_order_facts.order_id} ;;
+  }
+
+  join: derived_table_user_order_facts {
+    type: left_outer
+    view_label: "User Order facts"
+    relationship: many_to_one
+    sql_on: ${order_items.user_id}=${derived_table_user_order_facts.user_id} ;;
+  }
+
   join: inventory_items {
     type: full_outer
     relationship: one_to_one
