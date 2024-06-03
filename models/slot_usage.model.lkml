@@ -8,7 +8,8 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #
 
 named_value_format: millions {
-  value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
+  value_format: "0.000,,\" M\""
+  strict_value_format: yes
 }
 
 explore: awsapsoutheast2prod05 {
