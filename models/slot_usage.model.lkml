@@ -7,6 +7,9 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # # and define the joins that connect them together.
 #
 
+named_value_format: millions {
+  value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
+}
 
 explore: awsapsoutheast2prod05 {
   sql_always_where: ${count_of_jobs}>=158;;
