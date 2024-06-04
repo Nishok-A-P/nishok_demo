@@ -68,6 +68,20 @@ view: order_items {
     sql: ${sale_price} ;;
     drill_fields: [detail*]
   }
+  measure: total_profit_logic {
+    type: number
+    sql: ${total_sale_price} - ${inventory_items.total_cost} ;;
+    value_format_name: usd
+    html: {% if value >= 1000 %}
+      <font color="green">{{rendered_value}}</font>
+      {% elsif value >= 1 and value < 1000 %}
+      <font color="goldenrod">{{rendered_value}}</font>
+      {% else %}
+      <font color="red">{{rendered_value}}</font>
+      {% endif %}
+      ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

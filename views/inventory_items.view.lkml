@@ -1,4 +1,5 @@
 view: inventory_items {
+  required_access_grants: [can_view_inventory_data]
   sql_table_name: `genaipoc-396111.thelook_ecom.inventory_items` ;;
   drill_fields: [id]
 
@@ -57,5 +58,11 @@ view: inventory_items {
   measure: count {
     type: count
     drill_fields: [id, product_name, products.name, products.id, order_items.count]
+  }
+  measure: total_cost {
+    label: "Total Cost"
+    type: sum
+    value_format_name: usd
+    sql: ${cost} ;;
   }
 }
