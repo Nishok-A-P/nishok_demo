@@ -5,7 +5,7 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
 datagroup: ecomm_etl {
-  sql_trigger: SELECT max(created_at) FROM ecomm.events ;;
+  sql_trigger: SELECT max(created_at) FROM genaipoc-396111.thelook_ecom.events ;;
   max_cache_age: "1 hour"
 }
 
