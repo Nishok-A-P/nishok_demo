@@ -4,8 +4,22 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
+datagroup: ecomm_etl {
+  sql_trigger: SELECT max(created_at) FROM ecomm.events ;;
+  max_cache_age: "1 hour"
+}
+
+access_grant: can_view_inventory_data {
+  user_attribute: department
+  allowed_values: [ "lookml developer" ]
+}
+
 explore: order_items {
   label: "ecomm_explore"
+  access_filter: {
+    field: products.brand
+    user_attribute: allowed_brands
+  }
 
   join: derived_table_order_facts {
     type: left_outer
@@ -52,4 +66,5 @@ explore: order_items {
     relationship: many_to_one
     sql_on: ${orders.order_id}=${order_items.order_id} ;;
   }
+
 }
