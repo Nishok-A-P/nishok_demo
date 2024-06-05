@@ -65,6 +65,14 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+  dimension: age_tier {
+    label: "Age Tier"
+    type: tier
+    tiers: [0, 10, 20, 30, 40, 50, 60, 70]
+    style: integer
+    sql: ${age} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -73,13 +81,13 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	last_name,
-	first_name,
-	orders.count,
-	events.count,
-	order_items.count
-	]
+  id,
+  last_name,
+  first_name,
+  orders.count,
+  events.count,
+  order_items.count
+  ]
   }
 
 }
