@@ -31,8 +31,53 @@ view: awsuswest2prod03 {
   dimension: total_slot_ms {
     type: number
     sql: ${TABLE}.total_slot_ms ;;
+  }dimension: time_elapsed {
+    type: number
+    sql: TIMESTAMP_DIFF(${max_raw},${min_raw},SECOND) ;;
+  }
+  dimension: epoch_max_time {
+    sql: UNIX_SECONDS(${TABLE}.max_time) ;;
+  }
+  dimension: epoch_min_time {
+    sql: UNIX_SECONDS(${TABLE}.min_time) ;;
+  }
+  dimension: epoch_difference {
+    type: number
+    sql: ${epoch_max_time} - ${epoch_min_time} ;;
   }
   measure: count {
     type: count
+  }
+  measure: average_jobs {
+    type: average
+    sql: ${count_of_jobs} ;;
+  }
+  measure: total_bytes {
+    type: sum
+    sql: ${bytes} ;;
+  }
+  measure: total_jobs {
+    type: sum
+    sql: ${count_of_jobs} ;;
+  }
+  measure: Average_jobs_per_day {
+    type: number
+    sql: ${total_jobs}/COUNT(DISTINCT${max_date}) ;;
+  }
+  measure: max_slot_usage {
+    type: number
+    sql: max(${total_slot_ms}) ;;
+  }
+  measure: min_slot_usage {
+    type: number
+    sql: min(${total_slot_ms}) ;;
+  }
+  measure: max_bytes_processed {
+    type: number
+    sql: max(${bytes}) ;;
+  }
+  measure: min_bytes_processed {
+    type: number
+    sql: min(${bytes}) ;;
   }
 }
