@@ -31,8 +31,8 @@ view: awsuseast1prod01 {
     sql: ${TABLE}.min_start_time ;;
   }
   dimension: org_id {
-    type: number
-    sql: ${TABLE}.org_id ;;
+    type: string
+    sql: SAFE_CAST(${TABLE}.org_id as string) ;;
   }
   dimension: total_bytes_processed {
     type: number
